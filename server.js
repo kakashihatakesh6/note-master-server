@@ -10,6 +10,7 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+require('dotenv').config();
 
 
 const uri = 'mongodb+srv://sages:sages@sages.p1zye6m.mongodb.net/news'
