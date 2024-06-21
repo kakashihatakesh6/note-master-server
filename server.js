@@ -2,13 +2,15 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const { default: axios } = require('axios');
 
 const app = express();
-const port = process.env.port || 5000;
+const port = process.env.PORT || 5000;
 
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+
 
 const uri = 'mongodb+srv://sages:sages@sages.p1zye6m.mongodb.net/news'
 //
@@ -19,7 +21,19 @@ mongoose.connect(uri).then(() => {
 })
 
 app.get('/', (req, res) => {
-    res.json({message: 'Server is running fine!'});
+    res.json({ message: 'Server is running fine!' });
+})
+
+app.get('/getdata', async (req, res) => {
+    try {
+        let response = await axios.get(`https://newsapi.org/v2/everything?q=cricket&apiKey=1bb53ca7aeed4092a31d64da60e357e8`);
+        let newsData = response.data;
+        // console.log(newsData);
+        res.status(200).json({ message: 'success', newsData: newsData })
+    } catch (error) {
+        res.status(500).json({ message: "internal server errror" })
+    }
+
 })
 
 app.listen(port, () => {
