@@ -35,7 +35,7 @@ app.get('/getdata', async (req, res) => {
     try {
         let { q, page } = req.query;
         console.log("value q =>", q)
-        let response = await axios.get(`https://newsapi.org/v2/top-headlines?q=${q}&apiKey=6d51ade32aa443ae88852c55b34b8d83&page=${page}&pageSize=${6}`);
+        let response = await axios.get(`https://newsapi.org/v2/top-headlines?q=${q}&apiKey=ee81ff9f416a4def8e6b956b077bb745&page=${page}&pageSize=${6}`);
         let newsData = response.data;
         // console.log(newsData);
         res.status(200).json({ message: 'success', newsData: newsData })
