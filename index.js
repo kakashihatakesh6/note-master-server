@@ -19,7 +19,7 @@ mongoose.connect(uri).then(() => {
     console.log("MongoDB connected successfully!")
 }).catch((error) => {
     console.log("Error connecting to mongoose!", error)
-})
+});
 
 app.get('/', (req, res) => {
     res.json({ message: 'Server is running fine!' });
