@@ -29,9 +29,23 @@ app.listen(port, () => {
     console.log("Server running on port 3000");
 });
 
+// getdata
+app.get('/getdata', async (req, res) => {
+    try {
+        let response = await axios.get(`https://newsapi.org/v2/everything?q=cricket&apiKey=1bb53ca7aeed4092a31d64da60e357e8`);
+        let newsData = response.data;
+        // console.log(newsData);
+        res.status(200).json({ message: 'success', newsData: newsData })
+    } catch (error) {
+        res.status(500).json({ message: "internal server errror" })
+    }
+
+})
+
 
 
 const Habit = require('./models/habit');
+const { default: axios } = require('axios');
 // Endpoints to create a habit in a backend
 app.post("/habits", async (req, res) => {
     try {
