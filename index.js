@@ -33,11 +33,11 @@ app.listen(port, () => {
 // getdata
 app.get('/getdata', async (req, res) => {
     try {
-        let { q } = req.query;
+        let { q, page } = req.query;
         console.log("value q =>", q)
-        let response = await axios.get(`https://newsapi.org/v2/everything?q=${q}&apiKey=6d51ade32aa443ae88852c55b34b8d83`);
+        let response = await axios.get(`https://newsapi.org/v2/top-headlines?q=${q}&apiKey=6d51ade32aa443ae88852c55b34b8d83&page=${page}&pageSize=${6}`);
         let newsData = response.data;
-        console.log(newsData);
+        // console.log(newsData);
         res.status(200).json({ message: 'success', newsData: newsData })
     } catch (error) {
         res.status(500).json({ message: "internal server errror" })
