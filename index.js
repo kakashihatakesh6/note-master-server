@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const cors = require('cors');
 
 //
@@ -26,15 +26,17 @@ app.get('/', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log("Server running on port 3000");
+    console.log("Server running on port " + port);
 });
 
 // getdata
 app.get('/getdata', async (req, res) => {
     try {
-        let response = await axios.get(`https://newsapi.org/v2/everything?q=cricket&apiKey=1bb53ca7aeed4092a31d64da60e357e8`);
+        let { q } = req.query;
+        console.log("value q =>", q)
+        let response = await axios.get(`https://newsapi.org/v2/everything?q=${q}&apiKey=1bb53ca7aeed4092a31d64da60e357e8`);
         let newsData = response.data;
-        // console.log(newsData);
+        console.log(newsData);
         res.status(200).json({ message: 'success', newsData: newsData })
     } catch (error) {
         res.status(500).json({ message: "internal server errror" })
