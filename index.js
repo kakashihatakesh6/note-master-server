@@ -15,27 +15,26 @@ require('dotenv').config();
 
 
 //
-mongoose.connect("mongodb+srv://sages:sages@sages.p1zye6m.mongodb.net/habit-app").then(() => {
+mongoose.connect(`mongodb+srv://${process.env.DB_ID}:${process.env.DB_PASS}@sages.p1zye6m.mongodb.net/news-point`).then(() => {
     console.log("Connected to MongoDB!");
 }).catch((error) => {
-    console.log("Error Connecting to MOnoOG", error);
+    console.log("Error Connecting to Mongo", error);
 });
 
-
 app.get('/', (req, res) => {
-    res.json({"message": "Server is running fine!"})
+    res.json({"message": "News-Point server running fine!"})
 });
 
 app.listen(port, () => {
-    console.log("Server running on port " + port);
+    console.log("Server running on port http://localhost:" + port);
 });
 
 // getdata
 app.get('/getdata', async (req, res) => {
     try {
         let { q, page } = req.query;
-        console.log("value q =>", q)
-        let response = await axios.get(`https://newsapi.org/v2/top-headlines?q=${q}&apiKey=ee81ff9f416a4def8e6b956b077bb745&page=${page}&pageSize=${6}`);
+        // console.log("value q =>", q)
+        let response = await axios.get(`https://newsapi.org/v2/top-headlines?q=${q || 'india'}&apiKey=${process.env.API_KEY}&page=${page}&pageSize=${6}`);
         let newsData = response.data;
         // console.log(newsData);
         res.status(200).json({ message: 'success', newsData: newsData })
