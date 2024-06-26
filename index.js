@@ -19,8 +19,12 @@ connectDB();
 
 
 app.get('/', (req, res) => {
-    res.json({ "message": "News-Point server running fine!" })
+    res.json({ "message": "News-Master server running fine!" })
 });
+
+app.get('/hello', (req, res) => {
+    res.json({message: "Hello from nikhil!"})
+})
 
 app.listen(port, () => {
     console.log("Server running on port http://localhost:" + port);
