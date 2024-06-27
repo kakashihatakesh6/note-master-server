@@ -19,7 +19,7 @@ connectDB();
 
 
 app.get('/', (req, res) => {
-    res.json({ "message": "News-Master server running fine!" })
+    res.json({ message: "Note-Master server running fine!" })
 });
 
 app.get('/hello', (req, res) => {

@@ -53,9 +53,31 @@ router.get('/getnotes', async (req, res) => {
     }
 });
 
+// ROUTE 4 : Update a note
+
+router.put('/updatenote/:id', async (req, res) => {
+    try {
+        const {newData} = req.body;
+        const { id } = req.params;
+        console.log("id =>", id, newData)
+        if (!id) {
+            return res.status(500).json({ success: false, message: 'INternal server errror' })
+        }
+        const updatedNote = await Notes.findOneAndUpdate({_id: id}, {$set: newData}, {new: true});
+        console.log("updated note =>", updatedNote);
+        if (!updatedNote) {
+            return res.status(500).json({ success: false, message: 'INternal server errror' })
+        }
+        return res.status(200).json({ success: true, message: "Note successfully updated!", note: updatedNote })
+    } catch (error) {
+        return res.status(500).json({ success: false, message: 'INternal server errror' })
+    }
+});
+
+
 // ROUTE 4 : Delete a note
 
-router.delete('/deletenote/:id', async (req, res) => {
+router.delete('/deletenote/:id', fetchUser, async (req, res) => {
     try {
         const { id } = req.params;
         console.log("id =>", id)
