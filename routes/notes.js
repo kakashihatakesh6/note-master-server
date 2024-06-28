@@ -55,7 +55,7 @@ router.get('/getnotes', async (req, res) => {
 
 // ROUTE 4 : Update a note
 
-router.put('/updatenote/:id', async (req, res) => {
+router.put('/updatenote/:id', fetchUser, async (req, res) => {
     try {
         const {newData} = req.body;
         const { id } = req.params;
@@ -77,7 +77,7 @@ router.put('/updatenote/:id', async (req, res) => {
 
 // ROUTE 4 : Delete a note
 
-router.delete('/deletenote/:id', fetchUser, async (req, res) => {
+router.delete('/deletenote/:id', async (req, res) => {
     try {
         const { id } = req.params;
         console.log("id =>", id)
